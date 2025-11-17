@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Validated Form</title>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form onsubmit="return validate(this);">
+
+    <label>Full Name: </label>
+    <input type="text" name="fullName" id="fullName">
+    <span id="fullNameErr"></span><br><br>
+
+    <label>Username:</label>
+    <input type="text" name="userName" id="userName">
+    <span id="userNameErr"></span><br><br>
+
+    <label>Password: </label>
+    <input type="password" name="password" id="password">
+    <span id="passwordErr"></span><br><br>
+
+    <label>Date of Birth: </label>
+    <input type="date" name="dob" id="dob">
+    <span id="dobErr"></span><br><br>
+
+    <label>Favorite Color: </label>
+    <input type="color" name="color" id="color"><br><br>
+
+    <label>Gender: </label>
+    <input type="radio" name="gender" value="Male"> Male
+    <input type="radio" name="gender" value="Female"> Female
+    <span id="genderErr"></span><br><br>
+
+    <label>Languages Known: </label><br>
+    <input type="checkbox" name="lang" value="English"> English<br>
+    <input type="checkbox" name="lang" value="Bangla"> Bangla<br>
+    <input type="checkbox" name="lang" value="Spanish"> Spanish<br>
+    <input type="checkbox" name="lang" value="Hindi"> Hindi<br>
+    <span id="langErr"></span><br>
+
+    <label>Country:</label>
+    <select name="country" id="country">
+        <option value="">Select Country</option>
+        <option>Bangladesh</option>
+        <option>Russia</option>
+        <option>USA</option>
+        <option>Canada</option>
+    </select>
+    <span id="countryErr"></span><br><br>
+
+    <label>Biography: </label><br>
+    <textarea name="bio" id="bio"></textarea>
+    <span id="bioErr"></span><br><br>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+<script>
+function validate(pForm) {
+    let isValid = true;
+    document.querySelectorAll("span").forEach(s => s.innerHTML = "");
+
+    if (pForm.fullName.value.trim() === "") {
+        fullNameErr.innerHTML = "Full Name is required";
+        fullNameErr.style.color = "red";
+        isValid = false;
+    }
+
+    if (pForm.userName.value.trim().length < 3) {
+        userNameErr.innerHTML = "Username must be at least 3 characters";
+        userNameErr.style.color = "red";
+        isValid = false;
+    }
+
+    if (pForm.password.value.length < 6) {
+        passwordErr.innerHTML = "Password must be at least 6 characters";
+        passwordErr.style.color = "red";
+        isValid = false;
+    }
+
+    if (pForm.dob.value === "") {
+        dobErr.innerHTML = "Select your birth date";
+        dobErr.style.color = "red";
+        isValid = false;
+    }
+
+    const genderSelected = pForm.gender.value;
+    if (!genderSelected) {
+        genderErr.innerHTML = "Select gender";
+        genderErr.style.color = "red";
+        isValid = false;
+    }
+
+    const langSelected = document.querySelectorAll('input[name="lang"]:checked');
+    if (langSelected.length === 0) {
+        langErr.innerHTML = "Select at least one language";
+        langErr.style.color = "red";
+        isValid = false;
+    }
+
+    if (pForm.country.value === "") {
+        countryErr.innerHTML = "Select a country";
+        countryErr.style.color = "red";
+        isValid = false;
+    }
+
+    if (pForm.bio.value.trim().length < 10) {
+        bioErr.innerHTML = "Biography must be at least 10 characters";
+        bioErr.style.color = "red";
+        isValid = false;
+    }
+    alert("Form Submitted Successfully!");
+    return isValid;
+}
+</script>
+
+</body>
+</html>
